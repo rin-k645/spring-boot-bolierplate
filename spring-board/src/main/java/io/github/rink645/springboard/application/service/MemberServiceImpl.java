@@ -1,6 +1,7 @@
 package io.github.rink645.springboard.application.service;
 
 import io.github.rink645.springboard.application.repository.MemberRepository;
+import io.github.rink645.springboard.domain.exception.MemberNotFoundException;
 import io.github.rink645.springboard.domain.model.Member;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,20 +21,24 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void update(Long memberId, String name) {
-        Member member = memberRepository.findById(memberId).orElseThrow();
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFoundException(memberId));
         member.update(name);
         memberRepository.save(member);
     }
 
     @Override
     public void withdraw(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow();
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFoundException(memberId));
         member.withdraw();
         memberRepository.save(member);
     }
 
     @Override
     public Member find(Long memberId) {
-        return memberRepository.findById(memberId).orElseThrow();
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFoundException(memberId));
+
     }
 }

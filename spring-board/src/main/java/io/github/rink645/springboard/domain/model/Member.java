@@ -1,5 +1,6 @@
 package io.github.rink645.springboard.domain.model;
 
+import io.github.rink645.springboard.domain.exception.AlreadyWithdrawnMemberException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,7 +38,7 @@ public class Member {
 
     public void withdraw() {
         if (this.status == MemberStatus.WITHDRAWN) {
-            throw new IllegalStateException("이미 탈퇴한 회원입니다.");
+            throw new AlreadyWithdrawnMemberException();
         }
         this.status = MemberStatus.WITHDRAWN;
     }
