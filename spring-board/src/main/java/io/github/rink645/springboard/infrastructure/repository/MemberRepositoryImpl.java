@@ -7,6 +7,8 @@ import io.github.rink645.springboard.infrastructure.mapper.MemberEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepository {
@@ -22,9 +24,8 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public Member findById(Long memberId) {
+    public Optional<Member> findById(Long memberId) {
         return jpaRepository.findById(memberId)
-                .map(mapper::toDomain)
-                .orElseThrow(null);
+                .map(mapper::toDomain);
     }
 }

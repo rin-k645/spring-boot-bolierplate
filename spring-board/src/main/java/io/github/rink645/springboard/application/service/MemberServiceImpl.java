@@ -20,18 +20,20 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void update(Long memberId, String name) {
-        Member member = memberRepository.findById(memberId);
+        Member member = memberRepository.findById(memberId).orElseThrow();
         member.update(name);
+        memberRepository.save(member);
     }
 
     @Override
     public void withdraw(Long memberId) {
-        Member member = memberRepository.findById(memberId);
+        Member member = memberRepository.findById(memberId).orElseThrow();
         member.withdraw();
+        memberRepository.save(member);
     }
 
     @Override
     public Member find(Long memberId) {
-        return memberRepository.findById(memberId);
+        return memberRepository.findById(memberId).orElseThrow();
     }
 }

@@ -17,6 +17,7 @@ public class MemberEntityMapper {
 
     public MemberJpaEntity toEntity(Member member) {
         return MemberJpaEntity.builder()
+                .id(member.getId())
                 .name(member.getName())
                 .email(member.getEmail())
                 .status(member.getStatus())
